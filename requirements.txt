@@ -1,0 +1,24 @@
+# ============================================================
+# Competitive Intelligence Engine — Graph RAG POC
+# ============================================================
+# Graph Database
+neo4j==5.27.0
+
+# LLM Orchestration (0.3.x series supports Python 3.13 + numpy 2.x)
+langchain>=0.3.14,<0.4
+langchain-community>=0.3.14,<0.4
+langchain-ollama>=0.3.0,<0.4
+langchain-text-splitters>=0.3.0,<0.4
+
+# Vector Store — FAISS (has pre-built wheels, no C++ build needed)
+faiss-cpu>=1.9.0
+
+# Local LLM & Embeddings (via Ollama)
+ollama>=0.4.8,<0.5
+
+# Utilities
+python-dotenv==1.0.1
+faker>=25.0.0,<26
+
+# Notebook
+jupyter>=1.0.0
