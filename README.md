@@ -320,6 +320,7 @@ Graph_RAG_POC/
 | `ModuleNotFoundError` | Activate venv: `.venv\Scripts\activate` |
 | Neo4j connection refused | Check `.env` has correct Aura URI and password |
 | `GOOGLE_API_KEY not set` | Add your Gemini API key to `.env` |
+| `Unable to retrieve routing information` | Change `neo4j+s://` to `neo4j+ssc://` in `.env` to bypass corporate SSL interception |
 | `403 Forbidden` from Gemini | Verify API key at aistudio.google.com |
 | FAISS index not found | Run `python rag/ingest.py --build` first |
 | `pip install` fails | Try `pip install --user -r requirements.txt` |
