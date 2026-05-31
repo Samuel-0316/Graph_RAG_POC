@@ -24,7 +24,7 @@ This POC shows all three layers side-by-side through a single query router.
 | LLM | Google Gemini API (free) | Fast responses, no local GPU needed |
 | Embeddings | Google Gemini text-embedding-004 | Free embeddings via API |
 | Vector Store | FAISS (pip install) | Fast similarity search, no system install |
-| Orchestration | LangChain 0.3 + Python | Connects all components together |
+| Orchestration | LangChain 1.x + Python | Connects all components together |
 
 > **Zero system-level installations.** Everything runs through pip packages and API calls.
 
@@ -34,7 +34,7 @@ This POC shows all three layers side-by-side through a single query router.
 
 | Requirement | How to Get It |
 |------------|---------------|
-| Python 3.10+ | `python --version` (usually pre-installed or request from IT) |
+| Python 3.11.6 | `python --version` (confirmed working version for this project) |
 | pip | Comes with Python |
 | Internet access | For API calls to Neo4j Aura and Google Gemini |
 
@@ -91,9 +91,9 @@ NEO4J_PASSWORD=your-aura-password-here               # <-- paste the password fr
 # Google Gemini
 GOOGLE_API_KEY=your-gemini-api-key-here               # <-- paste your API key from Step 2
 
-# Model Configuration (no need to change these)
-GEMINI_LLM_MODEL=gemini-2.0-flash
-GEMINI_EMBED_MODEL=models/text-embedding-004
+# Model Configuration (confirmed working -- do not change)
+GEMINI_LLM_MODEL=gemini-2.5-flash
+GEMINI_EMBED_MODEL=gemini-embedding-2
 ```
 
 ### Step 6: Seed the Knowledge Graph
