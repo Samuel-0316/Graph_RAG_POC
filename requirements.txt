@@ -4,21 +4,21 @@
 # Graph Database
 neo4j==5.27.0
 
-# LLM Orchestration (0.3.x series supports Python 3.13 + numpy 2.x)
-langchain>=0.3.14,<0.4
-langchain-community>=0.3.14,<0.4
-langchain-ollama>=0.3.0,<0.4
-langchain-text-splitters>=0.3.0,<0.4
+# LLM Orchestration (LangChain 1.x for Gemini compatibility)
+langchain>=1.0.0,<2
+langchain-community>=0.3.14
+langchain-text-splitters>=0.3.0
 
-# Vector Store — FAISS (has pre-built wheels, no C++ build needed)
+# Google Gemini (LLM + Embeddings — free tier, no installs)
+langchain-google-genai>=4.0.0,<5
+google-generativeai>=0.8.0
+
+# Vector Store
 faiss-cpu>=1.9.0
-
-# Local LLM & Embeddings (via Ollama)
-ollama>=0.4.8,<0.5
 
 # Utilities
 python-dotenv==1.0.1
 faker>=25.0.0,<26
 
-# Notebook
+# Notebook (optional)
 jupyter>=1.0.0

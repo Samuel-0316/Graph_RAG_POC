@@ -36,8 +36,8 @@ This is the main orchestrator class. It:
 
 from graph.graph_rag import GraphRAGPipeline
 from rag.ingest import load_vector_store, retrieve
-from langchain_ollama import ChatOllama
-from langchain.prompts import ChatPromptTemplate
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
 import os
 
@@ -115,10 +115,10 @@ class CompetitiveIntelEngine:
     """
 
     def __init__(self):
-        llm_model = os.getenv('OLLAMA_LLM_MODEL', 'phi3.5:latest')
+        llm_model = os.getenv('GEMINI_LLM_MODEL', 'gemini-2.0-flash')
         self.graph_pipeline = GraphRAGPipeline()
         self.vectorstore = load_vector_store()
-        self.llm = ChatOllama(model=llm_model, temperature=0)
+        self.llm = ChatGoogleGenerativeAI(model=llm_model, temperature=0)
 
     def close(self):
         self.graph_pipeline.close()

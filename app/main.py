@@ -9,7 +9,7 @@ This is the interactive demo application. It ties together:
   - The Hybrid Pipeline (both combined)
 
 RUN:
-  python -X utf8 app/main.py
+  python app/main.py
 
 DEMO QUESTIONS (run in this order for maximum impact):
 
@@ -62,8 +62,8 @@ def print_header():
     print("=" * 70)
     print()
     print("  This system demonstrates three RAG layers:")
-    print("    [RAG]    Document search via FAISS + Ollama embeddings")
-    print("    [GRAPH]  Knowledge graph traversal via Neo4j + Cypher")
+    print("    [RAG]    Document search via FAISS + Gemini embeddings")
+    print("    [GRAPH]  Knowledge graph traversal via Neo4j Aura + Cypher")
     print("    [HYBRID] Both layers combined for comprehensive answers")
     print()
     print("  Target Client: TechCorp (default)")
@@ -125,19 +125,20 @@ def run_question(engine, question, target_client='TechCorp'):
 def main():
     print_header()
 
-    # Initialize the engine (loads models and connects to Neo4j)
+    # Initialize the engine (connects to cloud services)
     print("  Initializing engine...")
-    print("    - Connecting to Neo4j...")
+    print("    - Connecting to Neo4j Aura (cloud)...")
     print("    - Loading FAISS vector store...")
-    print("    - Loading Ollama LLM...")
+    print("    - Connecting to Google Gemini API...")
 
     try:
         engine = CompetitiveIntelEngine()
         print("  Engine ready!\n")
     except Exception as e:
         print(f"\n  ERROR: Could not initialize engine: {e}")
-        print("  Make sure Neo4j is running (docker-compose up -d)")
-        print("  Make sure Ollama is running (ollama serve)")
+        print("  Check your .env file:")
+        print("    - NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD (Neo4j Aura)")
+        print("    - GOOGLE_API_KEY (Google Gemini API)")
         print("  Make sure FAISS index exists (python rag/ingest.py --build)")
         sys.exit(1)
 

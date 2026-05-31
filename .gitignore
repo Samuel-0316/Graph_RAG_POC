@@ -10,8 +10,8 @@ venv/
 # Environment
 .env
 
-# ChromaDB local storage
-chroma_db/
+# FAISS vector index (re-buildable)
+faiss_index/
 
 # Jupyter
 .ipynb_checkpoints/

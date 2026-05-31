@@ -3,7 +3,7 @@ seed_neo4j.py — Populate Neo4j with Synthetic Competitive Intelligence Data
 =============================================================================
 
 WHAT THIS SCRIPT DOES:
-1. Connects to your local Neo4j instance
+1. Connects to your Neo4j instance (local or Neo4j Aura cloud)
 2. Runs the schema constraints/indexes (from schema.cypher)
 3. Creates nodes: Competitors, Clients, Market Segments, Pain Points,
    Technologies, Consultants, and Deals
@@ -311,4 +311,6 @@ if __name__ == '__main__':
     print_summary(driver)
 
     driver.close()
-    print("\n🎉 Graph seeded successfully! Open http://localhost:7474 to explore.")
+    print("\nGraph seeded successfully!")
+    print("  If using Neo4j Aura: check your instance at https://console.neo4j.io")
+    print("  If using local Neo4j: open http://localhost:7474 to explore.")

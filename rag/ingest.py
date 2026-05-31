@@ -1,18 +1,18 @@
 """
-ingest.py — RAG Ingestion + Retrieval Pipeline using FAISS + Ollama
-====================================================================
+ingest.py — RAG Ingestion + Retrieval Pipeline using FAISS + Google Gemini
+======================================================================
 
 WHAT THIS FILE DOES:
 1. LOADS .txt documents from the data/documents/ folder
 2. SPLITS them into chunks (smaller pieces of ~600 characters)
-3. EMBEDS each chunk using Ollama's nomic-embed-text model
+3. EMBEDS each chunk using Google Gemini's text-embedding-004 model
 4. STORES the vectors in FAISS (a vector similarity search library)
 5. RETRIEVES relevant chunks when asked a question
 
 HOW VECTOR SEARCH WORKS (the core of Vanilla RAG):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 1. Each chunk of text is converted to a VECTOR (a list of 768 numbers)
-   by the embedding model (nomic-embed-text running in Ollama).
+   by the embedding model (Google's text-embedding-004 via API).
 
 2. These numbers encode the MEANING of the text, not just the words.
    Similar meanings → similar vectors → close together in vector space.
@@ -34,7 +34,7 @@ WHY CHUNKING MATTERS:
 
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_ollama import OllamaEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from dotenv import load_dotenv
 import os
@@ -44,12 +44,12 @@ load_dotenv()
 # ── Configuration ────────────────────────────────────────────
 DOCS_DIR = os.path.join(os.path.dirname(__file__), '..', 'data', 'documents')
 FAISS_DIR = os.path.join(os.path.dirname(__file__), '..', 'faiss_index')
-EMBED_MODEL = os.getenv('OLLAMA_EMBED_MODEL', 'nomic-embed-text')
+EMBED_MODEL = os.getenv('GEMINI_EMBED_MODEL', 'models/text-embedding-004')
 
 
 def get_embeddings():
-    """Create an Ollama embedding function using nomic-embed-text."""
-    return OllamaEmbeddings(model=EMBED_MODEL)
+    """Create a Google Gemini embedding function using text-embedding-004."""
+    return GoogleGenerativeAIEmbeddings(model=EMBED_MODEL)
 
 
 def build_vector_store(docs_dir: str = None) -> FAISS:
@@ -95,9 +95,9 @@ def build_vector_store(docs_dir: str = None) -> FAISS:
     print(f"  Created {len(chunks)} chunks (avg {sum(len(c.page_content) for c in chunks) // len(chunks)} chars each)")
 
     # ── Step 3: EMBED chunks into vectors ─────────────────────
-    # Each chunk → 768-dimensional vector via nomic-embed-text
-    # This is the slowest step (embedding model runs locally)
-    print(f"\nStep 3/4: Embedding chunks with {EMBED_MODEL} (this may take a moment)...")
+    # Each chunk → 768-dimensional vector via Google's text-embedding-004
+    # This calls the Gemini API (free tier: generous limits)
+    print(f"\nStep 3/4: Embedding chunks with {EMBED_MODEL} via Gemini API...")
     embeddings = get_embeddings()
 
     # ── Step 4: STORE in FAISS ────────────────────────────────
